@@ -83,5 +83,5 @@ void Game::Update() {
   }
 }
 
-int Game::GetScore() const { return score; }
-int Game::GetSize() const { return snake.size; }
+//int Game::GetScore() const { return score; }
+//int Game::GetSize() const { return snake.size; }
