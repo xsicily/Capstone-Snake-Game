@@ -32,12 +32,12 @@ In this project, you can build your own C++ application or extend this Snake gam
 
 ## All Rubric points achieved
 
-# Loops, Functions, I/O
+### Loops, Functions, I/O
 1. Use fucntions and control structures
 2. Read data from an external file
 3. The project accepts user input and processes the input
 
-# Object Orient Programming
+### Object Orient Programming
 1. Use Object Oriented Programming techniques
 2. Specify data members as public, protected or private
 3. Initialize the class members through initialization lists
