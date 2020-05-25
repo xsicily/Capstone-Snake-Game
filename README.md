@@ -46,3 +46,5 @@ In this project, you can build your own C++ application or extend this Snake gam
 * Overloaded functions
 * Derived class functions override virtual base class functions
 * Templates
+
+3. Memory management
