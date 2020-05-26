@@ -48,3 +48,9 @@ In this project, you can build your own C++ application or extend this Snake gam
 * Templates
 
 3. Memory management
+* Make use of references(2 references variables or 2 pass-by-reference functions)
+* Use destructors
+* Resource Acquisition Is Initialization(RAII)
+* Rule of five
+* Use move semantics
+* Use smart pointers: unique_ptr, shared_ptr or weak_ptr
