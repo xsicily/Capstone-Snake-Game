@@ -54,3 +54,9 @@ In this project, you can build your own C++ application or extend this Snake gam
 * Rule of five
 * Use move semantics
 * Use smart pointers: unique_ptr, shared_ptr or weak_ptr
+
+4. Concurrency
+* Use multithreading
+* Use promise and future
+* Use mutex or lock
+* Use condition variable
