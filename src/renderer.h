@@ -5,7 +5,6 @@
 #include <SDL2/SDL.h> 
 #include "snake.h"
 #include <memory>
-#include "shared.h"
 
 class Renderer {
  public:
@@ -21,11 +20,13 @@ class Renderer {
  
 
  private:
-  //
+  
   /*
   SDL_Window *sdl_window;
   SDL_Renderer *sdl_renderer;
   */
+ 
+  // customize a SDL deleter
   struct sdl_deleter
   {
     void operator()(SDL_Window *p) const{
@@ -35,10 +36,12 @@ class Renderer {
       SDL_DestroyRenderer(p);
     }
   };
+
+  //make sdl_window an exclusive resource to <SDL_Window, sdl_deleter> using smart pointer
+  //make sdl_renderer an exclusive resource to <SDL_Renderer, sdl_deleter> using smart pointer
   std::unique_ptr<SDL_Window, sdl_deleter> sdl_window;
   std::unique_ptr<SDL_Renderer, sdl_deleter> sdl_renderer;
 
- 
   
   // Member variables
   const std::size_t screen_width;
