@@ -2,11 +2,11 @@
 #define SNAKE_H
 
 #include <vector>
-#include "SDL.h"
+#include <SDL2/SDL.h> 
 
 class Snake {
  public:
-  // Define snake's moving direction
+  // Define snake's moving directionl8y
   enum class Direction { kUp, kDown, kLeft, kRight };
 
   // Constructor
@@ -15,6 +15,7 @@ class Snake {
         grid_height(grid_height),
         head_x(grid_width / 2),
         head_y(grid_height / 2) {}
+
 
   
   void Update(); // Update snake's head and body
