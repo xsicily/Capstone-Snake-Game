@@ -35,6 +35,14 @@ class Renderer {
     void operator()(SDL_Renderer *p) const{
       SDL_DestroyRenderer(p);
     }
+  
+    void operator()(SDL_Surface *p) const{
+      SDL_FreeSurface(p);
+    }
+    void operator()(SDL_Texture *p) const{
+      SDL_DestroyTexture(p);
+    }
+    
   };
 
   //make sdl_window an exclusive resource to <SDL_Window, sdl_deleter> using smart pointer
@@ -42,7 +50,10 @@ class Renderer {
   std::unique_ptr<SDL_Window, sdl_deleter> sdl_window;
   std::unique_ptr<SDL_Renderer, sdl_deleter> sdl_renderer;
 
+  std::unique_ptr<SDL_Surface, sdl_deleter> surface;
+  std::unique_ptr<SDL_Texture, sdl_deleter> texture;
   
+
   // Member variables
   const std::size_t screen_width;
   const std::size_t screen_height;
