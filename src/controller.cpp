@@ -1,6 +1,6 @@
 #include "controller.h"
 #include <iostream>
-#include "SDL.h"
+#include <SDL2/SDL.h> 
 #include "snake.h"
 
 void Controller::ChangeDirection(Snake &snake, Snake::Direction input,
