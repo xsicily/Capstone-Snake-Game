@@ -2,8 +2,8 @@
 #include <iostream>
 #include <string>
 #include <memory>
-#include <SDL2/SDL.h> 
-#include <SDL_image.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 
 Renderer::Renderer(const std::size_t screen_width,
                    const std::size_t screen_height,
@@ -36,23 +36,40 @@ Renderer::Renderer(const std::size_t screen_width,
     std::cerr << "SDL_Error: " << SDL_GetError() << "\n";
   }
   */
-
+  // Create Window
   sdl_window.reset(SDL_CreateWindow("Snake Game", SDL_WINDOWPOS_CENTERED,
                                 SDL_WINDOWPOS_CENTERED, screen_width,
                                 screen_height, SDL_WINDOW_SHOWN));
 
-  if (nullptr == std::move(sdl_window)) {
+  if (nullptr == sdl_window) {
     std::cerr << "Window could not be created.\n";
     std::cerr << " SDL_Error: " << SDL_GetError() << "\n";
   }
 
   // Create renderer
   sdl_renderer.reset(SDL_CreateRenderer(sdl_window.get(), -1, SDL_RENDERER_ACCELERATED));
-  if (nullptr == std::move(sdl_renderer)) {
+  if (nullptr == sdl_renderer) {
     std::cerr << "Renderer could not be created.\n";
     std::cerr << "SDL_Error: " << SDL_GetError() << "\n";
   }
 
+ // Add background
+  surface.reset(IMG_Load(KPathToImg.c_str()));
+ 
+  //surface.reset(IMG_Load("../asset/back.png"));
+  if (nullptr == surface) {
+    std::cerr << "Surface init error.\n";
+    std::cerr << "SDL_Error: " << SDL_GetError() << "\n";
+  }
+
+  // Copy surface to texture
+  //std::unique_ptr<SDL_Texture, decltype(&SDL_DestroyTexture)> texture(SDL_CreateTextureFromSurface(sdl_renderer.get(),surface.get()), SDL_DestroyTexture);
+  texture.reset(SDL_CreateTextureFromSurface(sdl_renderer.get(),surface.get()));
+
+  if (nullptr == texture) {
+    std::cerr << "Texture init error.\n";
+    std::cerr << "SDL_Error: " << SDL_GetError() << "\n";
+  }
 }
 
 
@@ -69,25 +86,6 @@ void Renderer::Render(Snake const snake, SDL_Point const &food) {
 
   // Clear screen
   //int SDL_SetRenderDrawColor(SDL_Renderer* renderer,r,g,b,a)
-  // Load image to Surface
-  //std::unique_ptr<SDL_Surface, decltype(&SDL_FreeSurface)> surface(IMG_Load("./asset/back.png"), SDL_FreeSurface);
-  auto p = IMG_Load("./asset/back.png");
-  surface.reset(IMG_Load("./asset/back.png"));
-
-  if (nullptr == std::move(surface)) {
-    std::cerr << "Surface init error.\n";
-    std::cerr << "SDL_Error: " << SDL_GetError() << "\n";
-  }
-
-  // Copy surface to texture
-  //std::unique_ptr<SDL_Texture, decltype(&SDL_DestroyTexture)> texture(SDL_CreateTextureFromSurface(sdl_renderer.get(),surface.get()), SDL_DestroyTexture);
-  texture.reset(SDL_CreateTextureFromSurface(sdl_renderer.get(),surface.get()));
-
-  if (nullptr == std::move(texture)) {
-    std::cerr << "Texture init error.\n";
-    std::cerr << "SDL_Error: " << SDL_GetError() << "\n";
-  }
-
   SDL_SetRenderDrawColor(sdl_renderer.get(), 0x1E, 0x1E, 0x1E, 0xFF);
   SDL_RenderClear(sdl_renderer.get());
   SDL_RenderCopy(sdl_renderer.get(), texture.get(), NULL, NULL);
